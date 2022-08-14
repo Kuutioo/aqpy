@@ -1,6 +1,6 @@
 # AQPY
 
-Bot made with Python for AdventureQuest Worlds
+Bot made with Python for AdventureQuest Worlds that runs in the terminal window
 
 
 
