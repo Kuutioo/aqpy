@@ -7,12 +7,15 @@ import win32api, win32con, win32gui
 import utils
 
 
+pyautogui.FAILSAFE = True
+
 # Go To Arena and leave Arena coordinates
 arena_x, arena_y = 940, 240
 
 # Line of the quest in Available Quests tab
 quest_line_x, quest_line_y = 440, 290
 
+# Battlegrounde join command
 battlegrounde_command = '/join battlegrounde-'
 
 # Combo for class
@@ -33,40 +36,6 @@ def click(x, y):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
     time.sleep(0.01)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
-
-# Function to handle all of the logic required to turn in a quest
-def turn_in_quest():
-    global quest_turn_in_counter
-    
-    click(arena_x, arena_y)
-    time.sleep(2)
-    
-    pyautogui.hotkey('l')
-    time.sleep(1.5)
-    
-    click(quest_line_x, quest_line_y)
-    time.sleep(1.5)
-    
-    turn_in_button = pyautogui.locateOnScreen('images/turn_in_button.png')
-    
-    if turn_in_button != None:
-        turn_in_button_x, turn_in_button_y = pyautogui.center(turn_in_button)
-        click(turn_in_button_x, turn_in_button_y)
-        
-        quest_turn_in_counter += 1
-        print(f'Quest turned in {quest_turn_in_counter} times\n')
-        
-        time.sleep(2)
-
-def join_map(map_command, room_number):
-    pyautogui.hotkey('enter')
-    time.sleep(0.5)
-    
-    pyautogui.write(map_command + str(room_number))
-    time.sleep(0.5)
-    
-    pyautogui.hotkey('enter')
-    time.sleep(3)
 
 def find_aqw_hwnd():
     global aqw_hwnd
@@ -99,6 +68,62 @@ def start():
     time.sleep(3)
     print('Application Running\n\n')
     
+# Function to handle all of the logic required to turn in a quest
+def turn_in_quest():
+    global quest_turn_in_counter
+    
+    click(arena_x, arena_y)
+    time.sleep(2)
+    
+    pyautogui.hotkey('l')
+    time.sleep(1.5)
+    
+    click(quest_line_x, quest_line_y)
+    time.sleep(1.5)
+    
+    turn_in_button = pyautogui.locateOnScreen('images/quest_turn_in_button.png')
+    
+    if turn_in_button != None:
+        turn_in_button_x, turn_in_button_y = pyautogui.center(turn_in_button)
+        click(turn_in_button_x, turn_in_button_y)
+        
+        quest_turn_in_counter += 1
+        print(f'Quest turned in {quest_turn_in_counter} times\n')
+        
+        time.sleep(2)
+
+def join_map(map_command, room_number):
+    pyautogui.hotkey('enter')
+    time.sleep(0.5)
+    
+    pyautogui.write(map_command + str(room_number))
+    time.sleep(0.5)
+    
+    pyautogui.hotkey('enter')
+    time.sleep(3)
+
+def accept_quest(quest_number):
+    exclamation_mark = pyautogui.locateOnScreen('images/exclamation_mark.png')
+    if exclamation_mark != None:
+        exclamation_mark_x, exclamation_mark_y = pyautogui.center(exclamation_mark)
+        click(exclamation_mark_x, exclamation_mark_y)
+        
+        time.sleep(2)
+        
+        quests_button = pyautogui.locateOnScreen('images/quests_button.png')
+        if quests_button != None:
+            quests_button_x, quests_button_y = pyautogui.center(quests_button)
+            click(quests_button_x, quests_button_y)
+            time.sleep(2)
+            
+            click(300, 248 + (37 * quest_number))
+            time.sleep(2)
+            
+            accept_button = pyautogui.locateOnScreen('images/quest_accept_button.png')
+            if accept_button != None:
+                accept_button_x, accept_button_y = pyautogui.center(accept_button)
+                click(accept_button_x, accept_button_y)
+    
 # Main loop function of the program    
 def main():
     start()
@@ -108,6 +133,9 @@ def main():
     click(arena_x, arena_y)
     time.sleep(3)
     
+    accept_quest(5)
+    time.sleep(3)
+
     while True:
         click(arena_x, arena_y)
         in_arena = True
