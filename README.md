@@ -1,3 +1,4 @@
+
 # AQPY
 
 Bot made with Python for AdventureQuest Worlds that runs in the terminal window
@@ -20,6 +21,11 @@ Go to the root folder and type in the terminal
 If that doesn't work, try
 ```bash
   pip3 install -r requirements.txt
+```
+
+Then run
+```bash
+src/main.py
 ```
 ## Configurations and Hardware
 
