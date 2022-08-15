@@ -2,12 +2,22 @@ import os, sys
 import random
 import pyautogui
 import time
-import win32api, win32con, win32gui
+import threading
+import asyncio
+import win32api, win32con
+import asyncio
+import pyshark
 
 import utils
 
 
 pyautogui.FAILSAFE = True
+
+event_loop_1 = asyncio.new_event_loop()
+
+item_27755 = 0
+
+item_command = '"addItems","items":{"27755"'
 
 # Go To Arena and leave Arena coordinates
 arena_x, arena_y = 940, 240
@@ -36,6 +46,25 @@ def click(x, y):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
     time.sleep(0.01)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
+    
+def quest_item_counter():
+    global item_27755
+    item_27755 += 1
+    print(f'Added 1 quest item. Total count {item_27755}')
+
+def capture_packets(event_loop):
+    asyncio.set_event_loop(event_loop)
+    capture = pyshark.LiveCapture(interface='Ethernet 3', bpf_filter='tcp port 5588', eventloop=event_loop)
+    for packet in capture.sniff_continuously():
+        if 'DATA' in str(packet.layers):
+            payload = packet.tcp.payload
+            payload = payload.replace(':', '')
+            decoded_payload = bytes.fromhex(str(payload)).decode('utf-8')
+            if item_command in decoded_payload:
+                quest_item_counter()
+    capture.close()
+
+thread_1 = threading.Thread(target=capture_packets, args=[event_loop_1])
 
 def find_aqw_hwnd():
     global aqw_hwnd
@@ -126,6 +155,8 @@ def accept_quest(quest_number):
     
 # Main loop function of the program    
 def main():
+    global item_27755
+    
     start()
     
     join_map(battlegrounde_command, random.randint(1000, 9999))
@@ -136,12 +167,14 @@ def main():
     accept_quest(5)
     time.sleep(3)
 
+    thread_1.start()
     while True:
         click(arena_x, arena_y)
         in_arena = True
         while in_arena:
             for i in class_combo:
-                if pyautogui.locateOnScreen('images/quest_complete.png') != None:
+                if item_27755 == 10:
+                    item_27755 = 0
                     print('Quest Completed')
                     in_arena = False
                     turn_in_quest()
