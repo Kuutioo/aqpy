@@ -4,7 +4,8 @@
 Bot made with Python for AdventureQuest Worlds that runs in the terminal window
 
 
-
+## Notes
+This bot in this stage may or may not work in your computer. I will keep updating it and publish a release version when I'm sure it works on other computers.
 
 ## Features
 
