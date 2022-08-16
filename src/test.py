@@ -3,7 +3,7 @@ import win32process
 import win32gui
 import time
 
-import utils
+import utils.process_utils as process_utils
 
 '''
 time.sleep(2)
@@ -17,14 +17,14 @@ print(tid, pid)
 print(active_window_path)
 '''
 
-list_of_pids = utils.find_pid_by_name('Artix')
+list_of_pids = process_utils.find_pid_by_name('Artix')
 
 if len(list_of_pids) > 0:
     print('Process Exists | PID and other details are')
     for elem in list_of_pids:
         # print((elem['pid'], elem['name']))
         pid = elem['pid']
-        hwnd_list = utils.get_hwnds_for_pid(elem['pid'])
+        hwnd_list = process_utils.get_hwnds_for_pid(elem['pid'])
         print(hwnd_list)
         if len(hwnd_list) > 8:
             if win32gui.IsWindow(hwnd_list[2]) and win32gui.IsWindowEnabled(hwnd_list[2]):

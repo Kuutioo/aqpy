@@ -8,10 +8,11 @@ def focus_window_hwnd(handle):
 
     window_list = []
     win32gui.EnumWindows(callback, window_list)
-    for i in window_list:
-        if handle == i[0]:
-            win32gui.ShowWindow(i[0], win32con.SW_MAXIMIZE)
-            win32gui.SetForegroundWindow(i[0])
+    for hwnd in window_list:
+        if handle == hwnd[0]:
+            # IMPORTANT MIGHT ALSO BE HWND[5] IN SOME SCENARIOS
+            win32gui.ShowWindow(hwnd[0], win32con.SW_MAXIMIZE)
+            win32gui.SetForegroundWindow(hwnd[0])
             break
 
 # Get HWND for ProcessID        
@@ -35,4 +36,4 @@ def find_pid_by_name(process_name):
                list_of_process_objects.append(pinfo)
        except (psutil.NoSuchProcess, psutil.AccessDenied , psutil.ZombieProcess) :
            pass
-    return list_of_process_objects;
+    return list_of_process_objects
