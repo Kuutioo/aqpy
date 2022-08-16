@@ -4,7 +4,8 @@
 Bot made with Python for AdventureQuest Worlds that runs in the terminal window
 
 
-
+## Notes
+This bot in this stage may or may not work in your computer. I will keep updating it and publish a release version when I'm sure it works on other computers, but feel free to mess around with it.
 
 ## Features
 
@@ -34,6 +35,7 @@ requirements are a must
 
 In-Game
 - Low graphics
+- In full screen mode (It should do that automatically on startup)
 
 Hardware
 - 1920 x 1080 Monitor
