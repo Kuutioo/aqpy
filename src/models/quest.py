@@ -1,13 +1,15 @@
 import pyautogui
 import time
 import sys
+from typing import List
 
 from helpers import click
+from item import Item
 
 class Quest:
     quest_tab_line_x, quest_tab_line_y = 300, 248
     
-    def __init__(self, id: int, name: str, xp: int, gold: int, rewards: list):
+    def __init__(self, id: int, name: str, xp: int, gold: int, rewards: List[Item]):
         self.id = id
         self.name = name
         self.xp = xp
@@ -61,10 +63,8 @@ class Quest:
         time.sleep(2)
                 
         accept_button = pyautogui.locateOnScreen('images/quest_accept_button.png')
-        if accept_button == None:
-            print('Could not find the quest Accept Button')
-            sys.exit()
+        if accept_button != None:
+            accept_button_x, accept_button_y = pyautogui.center(accept_button)
+            click(accept_button_x, accept_button_y)
             
-        accept_button_x, accept_button_y = pyautogui.center(accept_button)
-        click(accept_button_x, accept_button_y)
         time.sleep(1.5)

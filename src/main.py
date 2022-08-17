@@ -3,6 +3,7 @@ import pyautogui
 import time
 
 import battlegrounde_farm
+from helpers import parse_apybot_file
 from utils import focus_window_hwnd, find_pid_by_name, get_hwnds_for_pid
 
 pyautogui.FAILSAFE = True
@@ -49,7 +50,9 @@ def main():
     os.system('cls')
     
     start()
-    battlegrounde_farm.start()    
+    # battlegrounde_farm.start()    
           
 if __name__ == "__main__":
-    main()
+    list = parse_apybot_file()
+    print(list)
+    # main()

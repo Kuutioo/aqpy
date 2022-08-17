@@ -21,9 +21,6 @@ battlegrounde_command = '/join battlegrounde-'
 # Combo for class
 class_combo = ['q', 'w', 'e', 'r']
 
-# Boolean value to check if player is in the arena
-in_arena = False
-
 event_loop_1 = asyncio.new_event_loop()
 packet_sniffer_thread = threading.Thread(target=capture_packets, args=[event_loop_1, quest_1_item_1])
 
@@ -44,7 +41,6 @@ def start():
     time.sleep(3)
     
     quest_1.accept_quest(5)
-    time.sleep(3)
     
     click(arena_x, arena_y)
     time.sleep(2)
@@ -54,13 +50,10 @@ def start():
 def main_loop(item: Item):
     packet_sniffer_thread.start()
     while True:
-        in_arena = True
-        while in_arena:
-            for ability in class_combo:
-                if item.item_count == 10:
-                    item.item_count = 0
-                    in_arena = False
-                    quest_1.turn_in_quest(1)
-                    break
-                pyautogui.hotkey(ability)
-                time.sleep(0.9)
+        for ability in class_combo:
+            if item.item_count == 10:
+                item.item_count = 0
+                quest_1.turn_in_quest(1)
+                break
+            pyautogui.hotkey(ability)
+            time.sleep(0.9)
