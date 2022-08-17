@@ -3,7 +3,7 @@ import pyautogui
 import time
 
 import battlegrounde_farm
-import utils.process_utils as process_utils
+from utils import focus_window_hwnd, find_pid_by_name, get_hwnds_for_pid
 
 pyautogui.FAILSAFE = True
 
@@ -15,12 +15,12 @@ def find_aqw_hwnd():
     
     print('Finding AQW HWND...')
     try:
-        list_of_pids = process_utils.find_pid_by_name('Artix')
+        list_of_pids = find_pid_by_name('Artix')
 
         if len(list_of_pids) > 0:
             print('Process Found')
             for elem in list_of_pids:
-                hwnd_list = process_utils.get_hwnds_for_pid(elem['pid'])
+                hwnd_list = get_hwnds_for_pid(elem['pid'])
                 pid = elem['pid']
                 if len(hwnd_list) > 8:
                     aqw_hwnd = hwnd_list[0]
@@ -37,17 +37,19 @@ def start():
     print('Application Starting...\n\n')
     
     find_aqw_hwnd()
-    process_utils.focus_window_hwnd(aqw_hwnd)
+    focus_window_hwnd(aqw_hwnd)
 
     time.sleep(3)
-    print('Application Running\n\n')
+    print('Application Running')
+    print('Press CTRL + C to exit\n\n')
     
     
 # Main function of the program    
 def main():    
+    os.system('cls')
+    
     start()
     battlegrounde_farm.start()    
           
 if __name__ == "__main__":
-    os.system('cls')
     main()

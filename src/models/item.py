@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, id, name, category, item_count):
+    def __init__(self, id: int, name: str, category: str, item_count: int):
         self.id = id
         self.name = name
         self.category = category
@@ -7,7 +7,7 @@ class Item:
         
     def add_item_count(self, count):
         self.item_count += count
-        print(f'Added {count} quest item. Total count: {self.item_count}')
+        print(f'Added {count} {self.name}. Total count: {self.item_count}')
         
     def add_item_command(self):
         return '"addItems","items":{"' + str(self.id) + '"'
