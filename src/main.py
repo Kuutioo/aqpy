@@ -4,43 +4,21 @@ import time
 
 import battlegrounde_farm
 from helpers import parse_apybot_file
-from utils import focus_window_hwnd, find_pid_by_name, get_hwnds_for_pid
+from utils import find_aqw_hwnd, focus_window_hwnd
+from models import Class
 
 pyautogui.FAILSAFE = True
 
-# AQW HWND
-aqw_hwnd = None
+combo = {'q': 3, 'w': 3, 'e': 25, 'r': 25}
 
-def find_aqw_hwnd():
-    global aqw_hwnd
-    
-    print('Finding AQW HWND...')
-    try:
-        list_of_pids = find_pid_by_name('Artix')
-
-        if len(list_of_pids) > 0:
-            print('Process Found')
-            for elem in list_of_pids:
-                hwnd_list = get_hwnds_for_pid(elem['pid'])
-                pid = elem['pid']
-                if len(hwnd_list) > 8:
-                    aqw_hwnd = hwnd_list[0]
-                    print(f'Found AQW HWND: {aqw_hwnd} from PID: {pid}\n\n')
-        else:
-            print('No Running Process found with given text')
-            sys.exit()
-    except:
-        print('An error has occurred. Try restarting the application or AQW\n')
-        sys.exit()
-
-
+archfiend = Class(9405, 'ArchFiend', combo)
+ 
 def start():
     print('Application Starting...\n\n')
     
-    find_aqw_hwnd()
+    aqw_hwnd = find_aqw_hwnd()
     focus_window_hwnd(aqw_hwnd)
 
-    time.sleep(3)
     print('Application Running')
     print('Press CTRL + C to exit\n\n')
     
@@ -50,9 +28,13 @@ def main():
     os.system('cls')
     
     start()
-    # battlegrounde_farm.start()    
+    
+    battlegrounde_farm.main() 
           
 if __name__ == "__main__":
-    list = parse_apybot_file()
-    print(list)
+    # list = parse_apybot_file()
+    # print(list)
     # main()
+    time.sleep(3)
+    while True:
+        archfiend.attack()

@@ -4,7 +4,7 @@ import sys
 from typing import List
 
 from helpers import click
-from item import Item
+from .item import Item
 
 class Quest:
     quest_tab_line_x, quest_tab_line_y = 300, 248
