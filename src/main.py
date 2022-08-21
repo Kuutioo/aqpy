@@ -9,7 +9,7 @@ from models import Class
 
 pyautogui.FAILSAFE = True
 
-combo = {'q': 3, 'w': 3, 'e': 25, 'r': 25}
+combo = {'q': 2.343, 'w': 2.343, 'e': 16}
 
 archfiend = Class(9405, 'ArchFiend', combo)
  
@@ -34,7 +34,4 @@ def main():
 if __name__ == "__main__":
     # list = parse_apybot_file()
     # print(list)
-    # main()
-    time.sleep(3)
-    while True:
-        archfiend.attack()
+    main()
