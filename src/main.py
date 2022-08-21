@@ -3,15 +3,9 @@ import pyautogui
 import time
 
 import battlegrounde_farm
-from helpers import parse_apybot_file
 from utils import find_aqw_hwnd, focus_window_hwnd
-from models import Class
 
 pyautogui.FAILSAFE = True
-
-combo = {'q': 2.343, 'w': 2.343, 'e': 16}
-
-archfiend = Class(9405, 'ArchFiend', combo)
  
 def start():
     print('Application Starting...\n\n')
