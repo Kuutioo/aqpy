@@ -3,14 +3,14 @@ import win32gui, win32con, win32process
 import psutil
 
 # Focus a window using its HWND
-def focus_window_hwnd(handle):
+def focus_window_hwnd(handles):
     def callback(hwnd, list_to_append):
         list_to_append.append((hwnd, win32gui.GetWindowText(hwnd)))
 
     window_list = []
     win32gui.EnumWindows(callback, window_list)
     for hwnd in window_list:
-        if handle == hwnd[0]:
+        if handles == hwnd[0]:
             # IMPORTANT MIGHT ALSO BE HWND[5] IN SOME SCENARIOS
             win32gui.ShowWindow(hwnd[0], win32con.SW_MAXIMIZE)
             win32gui.SetForegroundWindow(hwnd[0])
@@ -43,7 +43,7 @@ def find_pid_by_name(process_name):
 def find_aqw_hwnd():
     aqw_hwnd = None
     
-    print('Finding AQW HWND...')
+    print('\n\nFinding AQW HWND...')
     try:
         list_of_pids = find_pid_by_name('Artix')
 

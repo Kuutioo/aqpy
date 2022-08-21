@@ -1,15 +1,15 @@
-import os, sys
+import os
 import pyautogui
-import time
+import bots
 
-import battlegrounde_farm
+from bots.gold import *
+from bots.item import *
 from utils import find_aqw_hwnd, focus_window_hwnd
+from helpers import check_user_input
 
 pyautogui.FAILSAFE = True
  
 def start():
-    print('Application Starting...\n\n')
-    
     aqw_hwnd = find_aqw_hwnd()
     focus_window_hwnd(aqw_hwnd)
 
@@ -20,12 +20,22 @@ def start():
 # Main function of the program    
 def main():    
     os.system('cls')
+    print('Application Starting...\n\n')
     
-    start()
-    
-    battlegrounde_farm.main() 
+    while True:
+        print('1 - Battlegrounde Gold Farm')
+        print('2 - Enchanted Scale')
+        try:
+            choice = int(input('\nEnter bot number: '))
+        except ValueError:
+            print('Please enter a number\n')
+            continue
+        
+        start()
+        if choice == 1:
+            bots.gold.battlegrounde_bot.main() 
+        elif choice == 2:
+            bots.item.enchanted_scale.main()
           
 if __name__ == "__main__":
-    # list = parse_apybot_file()
-    # print(list)
     main()
