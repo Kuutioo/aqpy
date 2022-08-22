@@ -29,7 +29,7 @@ class Quest:
         self.check_quest_thread = None
         
         pyautogui.hotkey('l')
-        time.sleep(1.5)
+        time.sleep(1.75)
         
         click(self.quest_tab_line_x, self.quest_tab_line_y + (37 * quest_number), 1.5)
         
