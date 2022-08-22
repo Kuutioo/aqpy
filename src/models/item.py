@@ -11,3 +11,6 @@ class Item:
         
     def add_item_command(self):
         return '"addItems","items":{"' + str(self.id) + '"'
+    
+    def item_count_command(self, quantity):
+        return self.add_item_command + ':{"iQtyNow":' + str(quantity)
