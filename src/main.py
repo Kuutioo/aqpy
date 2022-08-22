@@ -35,7 +35,7 @@ def main():
         if choice == 1:
             bots.gold.battlegrounde_bot.main() 
         elif choice == 2:
-            bots.item.enchanted_scale.main()
+            bots.item.enchanted_scale_bot.main()
           
 if __name__ == "__main__":
     main()
