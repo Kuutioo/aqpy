@@ -1,5 +1,7 @@
 import asyncio, pyshark
 
+from jsonstream import loads
+
 from models.item import Item
 
 def capture_packets(event_loop, item: Item):
@@ -9,9 +11,16 @@ def capture_packets(event_loop, item: Item):
         if 'DATA' in str(packet.layers):
             payload = packet.tcp.payload
             payload = payload.replace(':', '')
-            decoded_payload = bytes.fromhex(str(payload)).decode('utf-8')
-            add_item_command = item.add_item_command()
-            if add_item_command in decoded_payload:
-                item.add_item_count(1)
+            decoded_payload = bytes.fromhex(str(payload)).decode('ASCII')
+            
+            if '%' in decoded_payload:
+                continue
+            
+            it = loads(decoded_payload)
+            for element in list(it):
+                print(element)
+                if item.add_item_command() in element:
+                    item.add_item_count(1)
+                
     capture.close()
     

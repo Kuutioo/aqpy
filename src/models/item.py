@@ -10,7 +10,7 @@ class Item:
         print(f'Added {count} {self.name}. Total count: {self.item_count}')
         
     def add_item_command(self):
-        return '"addItems","items":{"' + str(self.id) + '"'
+        return "'addItems', 'items': {'" + str(self.id) + "'"
     
     def item_count_command(self, quantity):
-        return self.add_item_command + ':{"iQtyNow":' + str(quantity)
+        return self.add_item_command + ": {'iQtyNow': " + str(quantity)
