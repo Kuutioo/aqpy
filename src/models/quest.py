@@ -37,7 +37,6 @@ class Quest:
             print('Turn in button not found!')
             print('Trying to force complete when next failsafe triggers')
             print('If quest is not completed then, it will loop back to see if the turn in button is found')
-            print('Quest is completed eventually\n')
             
             pyautogui.hotkey('l')
             time.sleep(1)
@@ -50,14 +49,14 @@ class Quest:
         for item in self.required_items:
             item.item_count = 0
             
+        print(f'\nCompleted Quest: {self.name}')
+            
         self.check_quest_thread = Thread(target=self.check_quest_done, args=[self.event, 1, self.failsafe_time, True], daemon=True)
         self.event.clear()
         self.check_quest_thread.start()
                     
         click(self.quest_tab_line_x, 830, 1.5)
-        
-        print(f'Completed Quest: {self.name}\n')
-                        
+                  
         pyautogui.hotkey('l')
         time.sleep(1)
         
@@ -73,5 +72,5 @@ class Quest:
             if event.is_set():
                 return
             time.sleep(1)
-        print('Triggering Failsafe. Most likely reason: Packet Missed\n')
+        print('\nTriggering Failsafe. Most likely reason: Packet Missed')
         self.turn_in_quest(quest_number, check_with_failsafe)   

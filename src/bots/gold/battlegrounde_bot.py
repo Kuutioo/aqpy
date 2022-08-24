@@ -17,7 +17,7 @@ map_1 = Map('battlegrounde')
 map_2 = Map('honorhall')
 
 event_loop_1 = asyncio.new_event_loop()
-packet_sniffer_thread = threading.Thread(target=capture_packets, args=[event_loop_1, quest_2_item_1], daemon=True)
+packet_sniffer_thread = threading.Thread(target=capture_packets, args=[event_loop_1, [quest_2_item_1]], daemon=True)
 
 def main():    
     map_2.join_map(random.randint(1000, 9999))

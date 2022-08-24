@@ -13,8 +13,10 @@ quest_1_item_1 = Item(35956, 'Dracolich Slain', 'Quest Item', 0)
 quest_1 = Quest(5294, 'DragonSlayer General Class', 300, 300, 50, [quest_1_item_1], [enchanted_scale])
 map_1 = Map('dragontown')
 
+item_list = [quest_1_item_1, enchanted_scale]
+
 event_loop_1 = asyncio.new_event_loop()
-packet_sniffer_thread = threading.Thread(target=capture_packets, args=[event_loop_1, quest_1_item_1], daemon=True)
+packet_sniffer_thread = threading.Thread(target=capture_packets, args=[event_loop_1, item_list], daemon=True)
 
 def main():
     map_1.join_map(random.randint(1000, 9999))
