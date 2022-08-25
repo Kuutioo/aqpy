@@ -2,7 +2,7 @@ import threading
 import asyncio
 import random
 
-from models import Item, Quest, Map, archfiend
+from models import Item, Quest, Map, archfiend_farm
 from helpers import click
 from utils import capture_packets
 
@@ -38,4 +38,4 @@ def main():
     while True:
         if quest_1_item_1.item_count == 12:
                 quest_1.turn_in_quest(1, False)
-        archfiend.attack()
+        archfiend_farm.attack()

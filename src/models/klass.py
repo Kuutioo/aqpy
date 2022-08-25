@@ -10,13 +10,10 @@ class Class:
         self.combo = combo
         
         self.ability_cooldowns = list(combo.values())
+        self.threads = []
         
-        self.threads = [
-            Thread(target=self.ability_cooldown, args=[self.ability_cooldowns[0], 0], daemon=True),
-            Thread(target=self.ability_cooldown, args=[self.ability_cooldowns[1], 1], daemon=True),
-            Thread(target=self.ability_cooldown, args=[self.ability_cooldowns[2], 2], daemon=True),
-            Thread(target=self.ability_cooldown, args=[self.ability_cooldowns[3], 3], daemon=True)      
-        ]
+        for index in range(len(self.ability_cooldowns)):
+            self.threads.append(Thread(target=self.ability_cooldown, args=[self.ability_cooldowns[index], index], daemon=True))
         
     def attack(self):
         for index, (ability, cooldown) in enumerate(self.combo.items()):
@@ -27,7 +24,7 @@ class Class:
                 continue
             pyautogui.hotkey(ability)
             self.threads[index].start()
-            time.sleep(1)
+            time.sleep(0.95)
                 
     def ability_cooldown(self, cooldown, thread_index):
         time.sleep(cooldown)

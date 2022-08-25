@@ -25,6 +25,7 @@ def main():
     while True:
         print('1 - Battlegrounde Gold Farm')
         print('2 - Enchanted Scale')
+        print('3 - Skill Rotate')
         try:
             choice = int(input('\nEnter bot number: '))
         except ValueError:
@@ -36,6 +37,8 @@ def main():
             bots.gold.battlegrounde_bot.main() 
         elif choice == 2:
             bots.item.enchanted_scale_bot.main()
+        elif choice == 3:
+            bots.skill.skill_rotate_bot.main()
           
 if __name__ == "__main__":
     main()
