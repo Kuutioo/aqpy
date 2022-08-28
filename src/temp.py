@@ -1,14 +1,12 @@
 import asyncio, pyshark, json
 from jsonstream import loads
+from models import Item
 
-def capture_packets(event_loop):
+def capture_packets(event_loop, item_list):
     last_packet = None
     
-    item_id = 27756
-    item_id_2 = 598
-    
     asyncio.set_event_loop(event_loop)
-    capture = pyshark.LiveCapture(interface='Ethernet', bpf_filter='tcp port 5588', eventloop=event_loop)
+    capture = pyshark.LiveCapture(interface='Ethernet 3', bpf_filter='tcp port 5588', eventloop=event_loop)
     for packet in capture.sniff_continuously():
         if 'DATA' in str(packet.layers):
             payload = packet.tcp.payload
@@ -28,20 +26,31 @@ def capture_packets(event_loop):
                     o = element['b']['o']
                     command = o['cmd']
                     if command == 'addItems':
-                        items = o.get('items').get(str(item_id))
-                        if items == None:
-                            continue
-                        i_qty = items.get('iQty')
-                        i_qty_now = items.get('iQtyNow')
-                        print(i_qty)
-                        print(i_qty_now)
-                                   
+                        for item in item_list:
+                            items = o.get('items').get(str(item.id))
+                            if items == None:
+                                continue
+                            i_qty = items.get('iQty')
+                            if item.category == 'Quest Item':
+                                item.add_item_count(int(i_qty))
+                            elif item.category == 'Item':
+                                i_qty_now = items.get('iQtyNow')
+                                item.display_count(int(i_qty_now))
+                    if command == 'dropItem':
+                        for item in item_list:
+                            items = o.get('items').get(str(item.id))
+                            if items == None:
+                                continue
+                            if item.category == 'Item':
+                                item.alert_drop()
             except json.decoder.JSONDecodeError:
                 last_packet = decoded_payload
                 
             
     capture.close()
        
+test_item = Item(35998, 'Slayer Helm', 'Item', 0)
+       
 event_loop_1 = asyncio.new_event_loop()
 
-capture_packets(event_loop_1)
+capture_packets(event_loop_1, [test_item])

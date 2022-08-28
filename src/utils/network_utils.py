@@ -37,6 +37,13 @@ def capture_packets(event_loop, item_list):
                             elif item.category == 'Item':
                                 i_qty_now = items.get('iQtyNow')
                                 item.display_count(int(i_qty_now))
+                    if command == 'dropItem':
+                        for item in item_list:
+                            items = o.get('items').get(str(item.id))
+                            if items == None:
+                                continue
+                            if item.category == 'Item':
+                                item.alert_drop()
             except json.decoder.JSONDecodeError:
                 last_packet = decoded_payload
                 
