@@ -1,6 +1,6 @@
-from models import archfiend_farm
+from models import *
 
 
 def main():  
     while True:
-        archfiend_farm.attack()
+        necrotic_chronomancer_farm.attack()
