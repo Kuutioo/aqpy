@@ -3,7 +3,7 @@ import pyautogui
 import bots
 
 from bots.gold import *
-from bots.item import *
+from bots.items import *
 from utils import find_aqw_hwnd, focus_window_hwnd
 from helpers import check_user_input
 
@@ -14,7 +14,7 @@ def start():
     focus_window_hwnd(aqw_hwnd)
 
     print('Application Running')
-    print('Press CTRL + C to exit\n\n')
+    print('Press CTRL + C to exit or drag your mouse to any corners of the screen\n\n')
     
     
 # Main function of the program    
@@ -32,13 +32,24 @@ def main():
             print('Please enter a number\n')
             continue
         
-        start()
         if choice == 1:
+            start()
             bots.gold.battlegrounde_bot.main() 
         elif choice == 2:
-            bots.item.enchanted_scale_bot.main()
+            start()
+            bots.items.enchanted_scale_bot.main()
         elif choice == 3:
-            bots.skill.skill_rotate_bot.main()
+            while True:
+                print('1 - Archfiend')
+                print('2 - Necrotic Chronomancer')
+                print('3 - Auto attack Spam')
+                try:
+                    class_choice = int(input('\nEnter class number: '))
+                except ValueError:
+                    print('Please enter a number\n')
+                    continue
+                start()
+                bots.skill.skill_rotate_bot.main(class_choice)
           
 if __name__ == "__main__":
     main()
