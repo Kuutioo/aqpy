@@ -40,9 +40,10 @@ def main():
             bots.items.enchanted_scale_bot.main()
         elif choice == 3:
             while True:
-                print('1 - Archfiend')
-                print('2 - Necrotic Chronomancer')
-                print('3 - Auto attack Spam')
+                print('\n1 - Archfiend')
+                print('2 - Legion Revenant')
+                print('3 - Necrotic Chronomancer')
+                print('4 - Auto attack Spam')
                 try:
                     class_choice = int(input('\nEnter class number: '))
                 except ValueError:

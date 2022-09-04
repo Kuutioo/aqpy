@@ -7,8 +7,11 @@ def main(class_number):
             archfiend_farm.attack()
     elif class_number == 2:
         while True:
-            necrotic_chronomancer_farm.attack()
+            legion_revenant_farm.attack()
     elif class_number == 3:
+        while True:
+            necrotic_chronomancer_farm.attack()
+    elif class_number == 4:
         while True:
             auto_attack_spam.attack()
       
