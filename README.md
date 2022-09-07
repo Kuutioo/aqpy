@@ -38,4 +38,4 @@ In-Game
 - In full screen mode (It should do that automatically on startup)
 
 Hardware
-- 1920 x 1080 Monitor
+- 1920 x 1080 Monitor (Not needed if you only use skill rotation)
