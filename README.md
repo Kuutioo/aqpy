@@ -9,7 +9,9 @@ This bot in this stage may or may not work in your computer. I will keep updatin
 
 ## Features
 
-- Farm gold on Battlegrounde
+- Farm gold on Battlegrounde or HonorHall
+- Farm Enchanted Scales
+- Skill Rotate
 
 
 
