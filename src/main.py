@@ -5,10 +5,9 @@ import bots
 from bots.gold import *
 from bots.items import *
 from utils import find_aqw_hwnd, focus_window_hwnd
-from helpers import check_user_input
 
 pyautogui.FAILSAFE = True
- 
+
 def start():
     aqw_hwnd = find_aqw_hwnd()
     focus_window_hwnd(aqw_hwnd)
